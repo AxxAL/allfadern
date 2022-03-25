@@ -20,7 +20,7 @@ public class FourChanPost {
     public int mediaSize = 0;
     public String mediaUrl = null;
 
-    public static FourChanPost parseJsonPost(JsonObject jsonPost) {
+    public static FourChanPost parseJsonObject(JsonObject jsonPost) {
         FourChanPost parsedPost = new FourChanPost();
 
         parsedPost.boardName = jsonPost.get("board").getAsJsonObject()

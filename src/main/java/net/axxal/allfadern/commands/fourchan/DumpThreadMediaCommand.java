@@ -21,15 +21,12 @@ public class DumpThreadMediaCommand extends Command {
     @Override
     public void run(MessageReceivedEvent event) throws CommandException {
 
-        if (args.size() < 2) {
-            event.getChannel().sendMessage("Incorrect usage! Find help at https://allfadern.axxal.net/").queue();
-        }
-
         String board = args.get(0);
         String threadId = args.get(1);
 
         List<String> mediaUrls = new ArrayList<>();
         try {
+            // Adds all posts with the media element to the list.
             for (FourChanPost post : FourChanTools.fetchAllPosts(board, threadId)) {
                 if (post.mediaUrl == null) continue;
                 mediaUrls.add(post.mediaUrl);
@@ -56,11 +53,11 @@ public class DumpThreadMediaCommand extends Command {
                 event.getChannel().sendMessage(message).queue();
             }
         } else {
+            // Sends message without splitting content into smaller lists.
             String message = "";
             for (String mediaUrl : mediaUrls) {
                 message += mediaUrl + "\n";
             }
-
             event.getChannel().sendMessage(message).queue();
         }
 

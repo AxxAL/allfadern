@@ -12,6 +12,8 @@ public class PingCommand extends Command {
     @Override
     public void run(MessageReceivedEvent event) {
         long time = System.currentTimeMillis();
+
+        // Sends message and edits it with latency when call is over.
         event.getChannel()
                 .sendMessage("Pong!")
                 .queue(res ->

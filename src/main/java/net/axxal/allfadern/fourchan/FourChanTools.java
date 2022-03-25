@@ -31,6 +31,7 @@ public class FourChanTools {
 
         List<FourChanPost> postList = new ArrayList<>();
 
+        // Execute HTTP request.
         Response response = call.execute();
 
         Gson gson = new Gson();
@@ -39,6 +40,7 @@ public class FourChanTools {
             throw new IOException("Request was unsuccessful.");
         }
 
+        // Parse json string to json object.
         JsonObject threadObject = gson.fromJson(response.body().string(), JsonObject.class);
 
         if (threadObject.has("error")) {
@@ -50,9 +52,12 @@ public class FourChanTools {
         JsonObject op = thread.get("op").getAsJsonObject();
         JsonObject posts = thread.get("posts").getAsJsonObject();
 
-        postList.add(FourChanPost.parseJsonPost(op));
+        // Add original post to the post list.
+        postList.add(FourChanPost.parseJsonObject(op));
+
+        // Add rest of posts to the post list.
         for (var post : posts.entrySet()) {
-            postList.add(FourChanPost.parseJsonPost(post.getValue().getAsJsonObject()));
+            postList.add(FourChanPost.parseJsonObject(post.getValue().getAsJsonObject()));
         }
 
         return postList;

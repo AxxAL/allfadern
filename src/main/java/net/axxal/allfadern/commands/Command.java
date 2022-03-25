@@ -18,21 +18,31 @@ abstract public class Command {
         this.label = label;
     }
 
+    // Check if message event is calling for extending command.
     public boolean handle(MessageReceivedEvent event) throws CommandException {
+        // Returns false if message event did not call for extending command.
         if (!event.getMessage().getContentRaw().toLowerCase().startsWith("a!" + label)) return false;
-        args = parseMessageContent(event.getMessage().getContentRaw());
 
-        if (args.size() < requiredArgs)
-            throw new CommandException("Too few arguments provided.");
+        // Parses the message arguments.
+        parseCommandArguments(event.getMessage().getContentRaw());
 
+        // Run the command action.
         run(event);
         return true;
     }
 
-    private List<String> parseMessageContent(String messageContent) {
+    // Parse arguments into argument list.
+    private void parseCommandArguments(String messageContent) throws CommandException {
         messageContent = messageContent.toLowerCase();
+
+        // Splits content at every blank space.
         String[] splitContent = messageContent.trim().split("\\s+");
-        return List.of(Arrays.copyOfRange(splitContent, 1, splitContent.length));
+
+        if (splitContent.length < requiredArgs)
+            throw new CommandException("Too few arguments provided.");
+
+        // Takes content after command request and puts it into the argument list.
+        args = List.of(Arrays.copyOfRange(splitContent, 1, splitContent.length));
     }
 
     protected abstract void run(MessageReceivedEvent event) throws CommandException;

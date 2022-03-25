@@ -14,6 +14,7 @@ import java.util.List;
 
 public class Bot {
 
+    // Register commands to bot.
     private static final List<Command> commands = List.of(
             new PingCommand(),
             new DumpThreadMediaCommand(),
@@ -21,6 +22,7 @@ public class Bot {
             new CurrentWeekCommand()
     );
 
+    // Create bot instance and attempt to start it.
     public static void start(String token) {
         JDABuilder builder = JDABuilder.createDefault(token)
                 .addEventListeners(
