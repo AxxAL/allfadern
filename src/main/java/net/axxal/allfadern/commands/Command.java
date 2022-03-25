@@ -1,5 +1,6 @@
 package net.axxal.allfadern.commands;
 
+import net.axxal.allfadern.exceptions.CommandException;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
@@ -10,13 +11,20 @@ abstract public class Command {
     protected final String label;
     protected List<String> args = new ArrayList<>();
 
+    protected int requiredArgs = 0;
+    protected String helpPageUrl = "https://github.com/AxxAL/allfadern/wiki/Command-usage";
+
     public Command(String label) {
         this.label = label;
     }
 
-    public boolean handle(MessageReceivedEvent event) {
+    public boolean handle(MessageReceivedEvent event) throws CommandException {
         if (!event.getMessage().getContentRaw().toLowerCase().startsWith("a!" + label)) return false;
         args = parseMessageContent(event.getMessage().getContentRaw());
+
+        if (args.size() < requiredArgs)
+            throw new CommandException("Too few arguments provided.");
+
         run(event);
         return true;
     }
@@ -27,5 +35,9 @@ abstract public class Command {
         return List.of(Arrays.copyOfRange(splitContent, 1, splitContent.length));
     }
 
-    public abstract void run(MessageReceivedEvent event);
+    protected abstract void run(MessageReceivedEvent event) throws CommandException;
+
+    public String getHelpPageUrl() {
+        return helpPageUrl;
+    }
 }

@@ -26,7 +26,7 @@ public class Configuration {
         }
     }
 
-    public static void setProperties() {
+    public static void loadProperties() {
         checkForEnvironmentFile();
         try (FileInputStream stream = new FileInputStream(fileName)) {
             properties.load(stream);

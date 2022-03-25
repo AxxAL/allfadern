@@ -1,5 +1,6 @@
-package net.axxal.allfadern.commands;
+package net.axxal.allfadern.commands.misc;
 
+import net.axxal.allfadern.commands.Command;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class PingCommand extends Command {
