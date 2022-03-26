@@ -1,6 +1,7 @@
 package net.axxal.allfadern;
 
 import net.axxal.allfadern.commands.Command;
+import net.axxal.allfadern.commands.misc.EateryLunchCommand;
 import net.axxal.allfadern.commands.misc.PingCommand;
 import net.axxal.allfadern.commands.fourchan.DumpThreadMediaCommand;
 import net.axxal.allfadern.commands.misc.CurrentWeekCommand;
@@ -17,7 +18,8 @@ public class Bot {
             new PingCommand(),
             new DumpThreadMediaCommand(),
             new PurgeChatCommand(),
-            new CurrentWeekCommand()
+            new CurrentWeekCommand(),
+            new EateryLunchCommand()
     );
 
     // Create bot instance and attempt to start it.
