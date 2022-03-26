@@ -26,6 +26,10 @@ abstract public class Command {
         // Parses the message arguments.
         parseCommandArguments(event.getMessage().getContentRaw());
 
+        if (args.size() < requiredArgs) {
+            throw new CommandException("Too few arguments provided.");
+        }
+
         // Run the command action.
         run(event);
         return true;
@@ -37,9 +41,6 @@ abstract public class Command {
 
         // Splits content at every blank space.
         String[] splitContent = messageContent.trim().split("\\s+");
-
-        if (splitContent.length < requiredArgs)
-            throw new CommandException("Too few arguments provided.");
 
         // Takes content after command request and puts it into the argument list.
         args = List.of(Arrays.copyOfRange(splitContent, 1, splitContent.length));

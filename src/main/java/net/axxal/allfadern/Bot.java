@@ -5,8 +5,6 @@ import net.axxal.allfadern.commands.misc.PingCommand;
 import net.axxal.allfadern.commands.fourchan.DumpThreadMediaCommand;
 import net.axxal.allfadern.commands.misc.CurrentWeekCommand;
 import net.axxal.allfadern.commands.moderation.PurgeChatCommand;
-import net.axxal.allfadern.listeners.CommandListener;
-import net.axxal.allfadern.listeners.GuildListener;
 import net.dv8tion.jda.api.JDABuilder;
 
 import javax.security.auth.login.LoginException;
@@ -25,10 +23,7 @@ public class Bot {
     // Create bot instance and attempt to start it.
     public static void start(String token) {
         JDABuilder builder = JDABuilder.createDefault(token)
-                .addEventListeners(
-                        new CommandListener(),
-                        new GuildListener()
-                );
+                .addEventListeners(new EventListener());
         try {
             builder.build();
         } catch (LoginException e) {

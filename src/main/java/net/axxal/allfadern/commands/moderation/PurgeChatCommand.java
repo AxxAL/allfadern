@@ -1,6 +1,7 @@
 package net.axxal.allfadern.commands.moderation;
 
 import net.axxal.allfadern.commands.Command;
+import net.axxal.allfadern.exceptions.CommandException;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -15,12 +16,7 @@ public class PurgeChatCommand extends Command {
     }
 
     @Override
-    public void run(MessageReceivedEvent event) {
-
-        if (args.size() < 1) {
-            return;
-        }
-
+    public void run(MessageReceivedEvent event) throws CommandException {
         int purgeAmount;
 
         try {
