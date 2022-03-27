@@ -22,7 +22,7 @@ public class EventListener extends ListenerAdapter {
                 if (command.handle(event)) return;
             } catch (CommandException e) {
                 event.getChannel().sendMessage(
-                        String.format("Error! %s\nSee command usage here: %s", e.getMessage(), command.getHelpPageUrl())
+                        String.format("Error! %s\nSee command usage here: <%s>", e.getMessage(), command.getHelpPageUrl())
                 ).queue();
             }
         }

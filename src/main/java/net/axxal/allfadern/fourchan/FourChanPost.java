@@ -20,6 +20,7 @@ public class FourChanPost {
     public int mediaSize = 0;
     public String mediaUrl = null;
 
+
     public static FourChanPost parseJsonObject(JsonObject jsonPost) {
         FourChanPost parsedPost = new FourChanPost();
 

@@ -54,6 +54,9 @@ public class EateryLunchCommand extends Command {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle("Eatery Lunch Menu");
         embedBuilder.setDescription(String.format("Year: %d, Week: %d", year, weekNumber));
+        embedBuilder.setFooter(api);
+        embedBuilder.setTimestamp(Instant.now());
+        embedBuilder.setColor(Color.WHITE);
 
         for (JsonElement day : days) {
             String title = day.getAsJsonObject().get("day").getAsString();
@@ -63,10 +66,6 @@ public class EateryLunchCommand extends Command {
             }
             embedBuilder.addField(title, dishes, false);
         }
-
-        embedBuilder.setFooter(api);
-        embedBuilder.setTimestamp(Instant.now());
-        embedBuilder.setColor(Color.WHITE);
 
         event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
     }

@@ -12,7 +12,7 @@ abstract public class Command {
     protected List<String> args = new ArrayList<>();
 
     protected int requiredArgs = 0;
-    protected String helpPageUrl = "https://github.com/AxxAL/allfadern/wiki/Command-usage";
+    protected final String helpPageUrl = "https://github.com/AxxAL/allfadern/wiki/Command-usage";
 
     public Command(String label) {
         this.label = label;
@@ -21,7 +21,7 @@ abstract public class Command {
     // Check if message event is calling for extending command.
     public boolean handle(MessageReceivedEvent event) throws CommandException {
         // Returns false if message event did not call for extending command.
-        if (!event.getMessage().getContentRaw().toLowerCase().startsWith("a!" + label)) return false;
+        if (!event.getMessage().getContentRaw().split("\\s+")[0].toLowerCase().equals(String.format("a!%s", label))) return false;
 
         // Parses the message arguments.
         parseCommandArguments(event.getMessage().getContentRaw());
